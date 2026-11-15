@@ -1,4 +1,4 @@
-package design
+package roots
 
 // The files the library makes whole from its values, for pages that draw
 // with them: web/tokens.css, every palette as CSS variables, and

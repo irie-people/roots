@@ -1,4 +1,4 @@
-# Working on the design library
+# Working on Roots, Irie People's design library
 
 These rules apply to every agent and every contributor.
 
@@ -22,7 +22,7 @@ Go, with the standard library only. Before a commit, `gofmt -l .` prints nothing
 
 ## What goes where
 
-- A colour or a number: palettes/ or tokens.json ([README](README.md) §3). Irie then takes it with `go get github.com/irie-people/design@main` and writes it into its copies with `tools/design.sh sync`.
+- A colour or a number: palettes/ or tokens.json ([README](README.md) §3). Irie then takes it with `go get github.com/irie-people/roots@main` and writes it into its copies with `tools/design.sh sync`.
 - A rule: [principles.md](principles.md), with its Why, From and Check (principles §9).
 - A part, or a new state of one: [components.md](components.md) and [gallery.html](gallery.html) (components §5).
 

@@ -20,7 +20,7 @@ Every colour drawn as text (`ink`, `muted`, `accent_ink`, `needs`, `done`, `paus
 
 - **Why:** what WCAG asks for text and for marks that carry meaning.
 - **From:** [WCAG 2.2](https://www.w3.org/TR/WCAG22/), 1.4.3 and 1.4.11.
-- **Check:** `TestPalettesKeepTheirContrast` (here); `TestPalettesMeetWCAG` and `TestContrastMatchesWCAG` (internal/ui); `design.Contrast` for new code.
+- **Check:** `TestPalettesKeepTheirContrast` (here); `TestPalettesMeetWCAG` and `TestContrastMatchesWCAG` (internal/ui); `roots.Contrast` for new code.
 
 ### 1.3 Work in OKLCH, mix in OKLab
 

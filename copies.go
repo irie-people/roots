@@ -1,4 +1,4 @@
-package design
+package roots
 
 // The copies: files in a project that keep some of the library's values
 // themselves, because what reads them cannot read the library where it

@@ -1,4 +1,6 @@
-# Irie People's design library
+# Roots
+
+Irie People's design library, named for roots reggae: the roots every Irie client grows from.
 
 How [Irie](https://github.com/irie-people/irie) looks and behaves in every client, kept in one place: the palettes and numbers every client draws with, the rules Irie has learned, and the parts it draws them as. Irie has six clients: the Mac app, the iPhone app, the phone's web app, the Windows app, the terminal sidebar and its site. They are written in Swift, HTML and CSS, JavaScript and Go. This library keeps them one product, and any Irie People project can draw from it.
 
@@ -13,7 +15,7 @@ To see it, open [gallery.html](gallery.html) in a browser from a checkout; it ne
 | [gallery.html](gallery.html) | Every palette, role, state and part, drawn in each palette and mode (`#palette=lilac&mode=dark` picks one) |
 | [web/components.css](web/components.css) | The parts for web pages, as `ir-` classes built only from roles |
 | web/tokens.css, web/tokens.js | The palettes for a web page, made by `go run ./cmd/webtokens` |
-| design.go, copies.go, generate.go | The library in Go: `import "github.com/irie-people/design"` |
+| roots.go, copies.go, generate.go | The library in Go: `import "github.com/irie-people/roots"` |
 
 ## 1. The layers
 
@@ -37,14 +39,14 @@ A palette has 21 colours, each for one job. Parts name roles, never colours, so 
 | Start button | `accent_fill`, with `on_accent` on it | the one prominent button |
 | Icon | `sun`, `waves` | Irie's sun and sea |
 
-`design.Roles()` lists them with their names in Irie's Make a Theme and how each is drawn.
+`roots.Roles()` lists them with their names in Irie's Make a Theme and how each is drawn.
 
 ## 3. Changing a colour or a number
 
 1. Change it in [palettes/](palettes) or [tokens.json](tokens.json).
 2. Run `go run ./cmd/webtokens`, then `go test ./...`. The tests check every text colour at 4.5:1 and the accent at 3:1 on every surface of every palette, and that the web files are current.
 3. Commit and push it ([AGENTS.md](AGENTS.md)).
-4. In Irie, `go get github.com/irie-people/design@main` takes it, `tools/design.sh sync` writes it into Irie's copies (§4), and `tools/check.sh ./internal/designcheck ./internal/ui` checks them, with Irie's tests for colour-blind viewers.
+4. In Irie, `go get github.com/irie-people/roots@main` takes it, `tools/design.sh sync` writes it into Irie's copies (§4), and `tools/check.sh ./internal/designcheck ./internal/ui` checks them, with Irie's tests for colour-blind viewers.
 
 A new palette is a new file in palettes/ and its ID in tokens.json's `palettes`, then a copy in every client that lists the palettes (Irie's Theme.swift).
 
@@ -65,14 +67,14 @@ In a copy, each block of the library's colours sits between two comments, `desig
 
 The first comment names a palette and a mode, a palette alone (its block then says which set each colour is in with a `light` or `dark` key, as `light: Swatches(` or `"dark": {`), or `terminal`. Inside a block every name with a colour must be one of the palette's roles, in any spelling (`--needs-tint`, `needsTint`, `"needs_tint"`), or a name the first comment gives a role (`page=sidebar` above). A colour of the file's own goes outside the blocks. Numbers, such as the agents', are found by a pattern each copy gives.
 
-A project lists its copies as `[]design.Copy`, runs `design.Check(root, copies)` in a test, so a copy changed by hand fails it, and `design.Sync(root, copies)` from a command that writes the library's values in. Irie's list, and its check of its site's themes page, are in Irie's internal/designcheck, run by `tools/design.sh`.
+A project lists its copies as `[]roots.Copy`, runs `roots.Check(root, copies)` in a test, so a copy changed by hand fails it, and `roots.Sync(root, copies)` from a command that writes the library's values in. Irie's list, and its check of its site's themes page, are in Irie's internal/designcheck, run by `tools/design.sh`.
 
 ```go
-import "github.com/irie-people/design"
+import "github.com/irie-people/roots"
 
-p, _ := design.PaletteByID("evergreen")
+p, _ := roots.PaletteByID("evergreen")
 fmt.Println(p.Dark["needs"])                      // #FF9585
-fmt.Println(design.Contrast(p.Light["ink"], p.Light["card"]))
+fmt.Println(roots.Contrast(p.Light["ink"], p.Light["card"]))
 ```
 
 ## 5. Where the library stands

@@ -10,11 +10,11 @@ import (
 	"path/filepath"
 	"slices"
 
-	"github.com/irie-people/design"
+	"github.com/irie-people/roots"
 )
 
 func main() {
-	files := design.WebTokens()
+	files := roots.WebTokens()
 	for _, path := range slices.Sorted(maps.Keys(files)) {
 		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 			fmt.Fprintln(os.Stderr, err)

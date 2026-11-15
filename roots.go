@@ -1,11 +1,11 @@
-// Package design is Irie People's design library in code: Irie's
+// Package roots is Roots, Irie People's design library, in code: Irie's
 // palettes and the tokens every client draws with, read from the JSON
 // files beside it, which are the one place each value is kept. A Go
 // program reads them here. A file that cannot, such as a Swift app's
 // palette or a web page's CSS, keeps a copy between marker comments; its
 // project lists those copies, Check says where one has drifted, and Sync
 // writes the library's values into them (README.md §4).
-package design
+package roots
 
 import (
 	"bytes"
@@ -202,7 +202,7 @@ var lib = mustLoad()
 func mustLoad() library {
 	l, err := load()
 	if err != nil {
-		panic("design: " + err.Error())
+		panic("roots: " + err.Error())
 	}
 	return l
 }
