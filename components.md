@@ -111,7 +111,7 @@ Where a person types a task, at the foot of the sidebar: three lines tall, alway
 
 ### 3.7 Segmented control
 
-A short row of choices, one picked: the List and Repo views. The picked one is a `card` thumb with a shadow on a `panel` track.
+A short row of choices, one picked: the List and Repo views. The picked one is a `card` thumb with a shadow on a `panel` track. When it swaps a panel, it is a tab row in this dress and takes the tab list's roles and keys (§3.13, principles §4.6); when it only sets a mode, its buttons are pressed or not (`aria-pressed`), as the gallery's pickers are.
 
 - **Mac:** `ModeSwitch` (SidebarView.swift), at most 190 pt wide. **Windows:** `.seg`.
 
@@ -148,6 +148,27 @@ A session's turns as a person reads them:
 - **A tool call:** one line in plain words that opens to its exact command (`CallRow`, `ToolCall`), and a group of calls folds into one (`GroupRow`, `GroupCall`).
 - **Needs card:** what the agent asks, with its options (`NeedsCard` in both apps, which differ a lot: **to converge**).
 - **Note line:** a hairline, a few words, a hairline, between turns (`NoteLine`).
+
+### 3.13 Tab row
+
+A row of tabs, one picked, that swaps what shows under it: the panes' index tabs, the right sidebar's tabs, a code card's open files, the spaces, Settings' pages. The picked tab either joins what it shows, as a folder's tab does, or fills on the row, as a segmented control's thumb does (§3.7).
+
+- **Made of:** labels in `muted` on the surface around the row; the picked tab and its panel in `card`, its label in `ink` and heavier; an inset `hover` fill under the pointer, its corners the tab's less the inset (principles §2.6).
+- **Folder tabs:** the picked tab and its panel are one outline. Its top corners are round, and where each side meets the panel a concave curve of the same radius turns into the panel's top edge. Beside the panel's edge the curve and the panel's corner share the room (principles §2.7): a first tab flush with the edge has no curve there, and that corner of the panel is square until the row scrolls it away. The row leaves room for both after its last tab.
+- **States:**
+  - *picked*: joined to its panel (folder) or filled (segmented); its label heavier, at the width it always keeps, so nothing after it moves (principles §2.3).
+  - *hover*: the inset fill. *Focus*: a ring drawn inside the tab, so the row's edge never clips it (principles §4.5).
+  - *overflowing*: the row scrolls with no scrollbar, and each side where tabs hide gets a fade and a chevron button, named "Previous tabs" and "Next tabs" and placed outside the tab list; a chevron goes when its side has nothing left. The picked tab scrolls into view, clear of the fade (principles §2.8). Chevrons show only with a fine pointer; a finger swipes.
+  - *moving*: when the pick changes, the picked box may slide to its new tab in about 0.2 s; under Reduce Motion it jumps (principles §5.3).
+- **Keys:** on the web, the tab list's roles and keys (principles §4.6). On the Mac, each row's tabs have keys of their own: ⌥⌘1–9 for the right sidebar, ⌃1–9 for spaces, ⌥Tab through the panes.
+- **Use it** when each tab has its own content in one place. For a few views of one thing, a segmented control (§3.7); for pages, links in a navigation row.
+- **Don't** let a picked label widen the row, hide a scrollbar without the fade and chevron, or give a row the tabs' roles without their keys.
+- **Mac:** the panes' index tabs (`IndexCard`, `CardTab`, `RolodexLayout`, Rolodex.swift): folder tabs drawn as one outline with tangent arcs, their widths set by the row, so nothing moves. The right sidebar's tabs (RightSidebar.swift), their names turning to icons when narrow (`ViewThatFits`). Space chips (`SpaceBar`, `SpaceChip`, Spaces.swift). A code card's files (CodePane.swift). **Phone web:** Browser and Term (`.seg`, js/conv.js). **Windows:** List and Repo (`.seg`), the spaces (`.spaces`) and Settings' pages (`.set-tabs`, js/settings.js). **Web:** `.ir-tabs` (web/components.css), with the keys and chevrons in the gallery's script.
+- **To converge:**
+  - The Mac's right sidebar tabs, space chips and code card files turn the picked label bold while each sizes to its text, so the labels after it move at every pick, by 1 to 5 points (measured in the system fonts at their sizes).
+  - A code card's files and the space chips scroll with no scrollbar, fade or chevron, and a newly opened file's chip is added at the end, where it can land out of sight.
+  - The web apps' four tab rows have the tabs' roles but not their keys; Settings' row has no name and, as written, loses the keyboard when it draws itself again.
+  - A segmented control is pressed buttons in the gallery and tabs in the web apps; each should follow what it does (§3.7).
 
 ## 4. Patterns
 

@@ -106,11 +106,11 @@ Parking puts a card last in Parked, folded, at once; unparking puts it last abov
 
 ### 2.3 Nothing moves under the pointer
 
-Hover swaps what sits in a fixed-width slot, as the age gives way to a card's buttons; a rename edits in place at the same size; a name never re-wraps as an age ticks; a drawer resizes the terminal once, not on every frame. Only the person scrolls, but for one thing: a task they just started scrolls into view.
+Hover swaps what sits in a fixed-width slot, as the age gives way to a card's buttons; a rename edits in place at the same size; a name never re-wraps as an age ticks; a picked label may turn heavier but keeps the width of its heavier self, so the labels after it hold still; a drawer resizes the terminal once, not on every frame. Only the person scrolls, but for two things: a task they just started scrolls into view, and so does the picked item of a row that scrolls sideways, whenever it changes (2.8).
 
 - **Why:** a target that moves as you reach for it gets missed.
-- **From:** asked for on 2026-10-27 (DESIGN §4.1).
-- **Check:** `TestWheelMovesTheOffsetNotTheSelection` (internal/ui); the Mac app's side is unchecked.
+- **From:** asked for on 2026-10-27 (DESIGN §4.1); labels that keep their width, [Ariakit](https://github.com/ariakit/ariakit)'s tabs (MIT), read 2026-11-15.
+- **Check:** `TestWheelMovesTheOffsetNotTheSelection` (internal/ui); the Mac app's side is unchecked, and three of its tab rows still widen a picked label (components §3.13).
 
 ### 2.4 Compact rows, details on demand
 
@@ -133,8 +133,24 @@ Cards lie flat in the list, with no edge or shadow at rest. The selected card st
 Sizes step on a 4-point grid; there is less space inside a group than between groups; an inner corner's radius is the outer radius less the padding between them. Corners follow the platform: cards are 14 on the Mac, 16 on the phones, 8 on Windows.
 
 - **Why:** rhythm makes a view easy to read; one-off sizes make it look assembled.
-- **From:** [unslop](https://github.com/heydamir/unslop) (CC BY 4.0); the clients' own sizes.
+- **From:** [unslop](https://github.com/heydamir/unslop) (CC BY 4.0); the clients' own sizes; [Ariakit's video](https://www.instagram.com/reel/DfxUCLXi2tj) of 2026-11-15 shows the corner rule in a tab row (16 round 11, with 5 between).
 - **Check:** unchecked. The clients have no shared spacing scale or type ramp yet (README §5).
+
+### 2.7 Curves that meet share the room
+
+Where two curves meet side by side, as a picked tab's foot and the corner of the panel beside it do, each needs its full radius of room. With less room, both shrink together: the corner takes at most half and the curve the rest. A tab flush with the panel's edge leaves no room, so it has no curve there and that corner is square. A curve never runs into another.
+
+- **Why:** curves squeezed into less room than their radii overlap and kink the outline, which reads as a mistake.
+- **From:** [Ariakit](https://github.com/ariakit/ariakit)'s tabs (MIT), whose curves shrink to fit or are cut at an edge, read 2026-11-15; [Ariakit's video](https://www.instagram.com/reel/DfxUCLXi2tj) of 2026-11-15, which labels each radius (room of 32, 29 and 15 gives curves of 16 and 16, 15 and 15, 8 and 8).
+- **Check:** unchecked. The gallery's tab rows draw the flush case, and leave room for both at the far end (components §3.13).
+
+### 2.8 A row that scrolls shows where more lies
+
+A row too narrow for its items may hide its scrollbar only if it shows a fade and a button on each side where items hide, and only there. The picked item comes fully into view, clear of the fade, whenever it changes.
+
+- **Why:** a row cut off cleanly at its edge looks complete, so what lies past it is never found, and a picked item out of sight looks as if nothing is picked.
+- **From:** Ariakit's tabs (MIT): fades at each end while more tabs lie that way, and "Previous tabs" and "Next tabs" buttons beside the row with a fine pointer, read 2026-11-15; Ariakit's video of 2026-11-15.
+- **Check:** unchecked. The gallery's tab rows do it (components §3.13); the Mac's code card files and space chips do not yet.
 
 ## 3. Disclosure
 
@@ -195,6 +211,14 @@ The selected card keeps its fill, and its edge goes bolder while the list has th
 - **Why:** someone using the keyboard needs to see where it is.
 - **From:** [WCAG 2.2](https://www.w3.org/TR/WCAG22/) 2.4.7.
 - **Check:** unchecked.
+
+### 4.6 Tabs act like tabs
+
+A row that swaps the panel under it is a tab list: it has a name, each tab says whether it is picked, the arrow keys move between tabs and pick them (Home and End go to the ends), and the whole row is one stop for the Tab key. When a panel is slow to show, arriving on a tab doesn't pick it: Enter or Space does. On the web that is `role="tablist"` with a label, `role="tab"` with `aria-selected` and `aria-controls`, and `role="tabpanel"` labelled by its tab. A row of links to pages is navigation, with the current page marked (`aria-current="page"`), not tabs.
+
+- **Why:** a screen reader says "tab, 2 of 5", and its user reaches for the arrow keys; a row that says it is tabs and ignores them leaves them stuck.
+- **From:** [WAI-ARIA Authoring Practices, Tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/), read 2026-11-15; Ariakit's tabs (MIT).
+- **Check:** unchecked. Irie's web apps' tab rows have the roles but not yet the keys (components §3.13).
 
 ## 5. Motion
 
@@ -283,6 +307,7 @@ A notice never covers the task bar; an error stays at least 8 seconds and as lon
 - A second icon for a state its button already shows (4.1).
 - Colour fans at full brightness and saturation (1.4).
 - One-off sizes, uppercase tracked labels on body text, pulsing on what is not live.
+- A picked label that widens its row, or a row cut off at its edge with no sign of what lies past it (2.3, 2.8).
 
 From [unslop](https://github.com/heydamir/unslop) (CC BY 4.0) and Irie's own history. A quick test for a new view: put another product's name on it. If it still fits as well, it has no point of view yet.
 
@@ -301,5 +326,5 @@ When a session learns something that should hold from now on, about colour, layo
 - **Shadows.** "Depth from surfaces" met the selected card's shadow: one shadow, for the selection (2.5).
 - **Harmony or distinction.** Neighbouring hues look calmer, but cards side by side must stand apart: distinction wins for neighbours (1.6).
 - **Agents' colours for colour-blind viewers.** The six share one lightness, so some pairs come close in colour-blind vision. They mark which session is which, never a state, and each card has its name: no meaning rides on them alone (1.7).
-- **Scrolling.** "Only the person scrolls" has one exception: a task they just started scrolls into view (2.3).
+- **Scrolling.** "Only the person scrolls" has two exceptions: a task they just started scrolls into view, and so does a row's picked item when it changes (2.3, 2.8).
 - **Contrast in dark mode.** Some advice asks dark-mode text for 7:1; Irie's floor is 4.5:1 in both modes, with 7:1 for agents' text under Increase Contrast (1.2, 7.1).

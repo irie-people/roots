@@ -246,6 +246,87 @@
 .ir-panel dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .ir-panel code { font: var(--ir-small) var(--ir-mono); }
 
+/* ---- Tab row (components §3.13) --------------------------------------- */
+
+/* Folder tabs: the picked tab and the panel under it are one outline. The
+   concave curve where each side meets the panel is a box beside the tab's
+   foot, clear inside a circle of the tab's radius and the panel's colour
+   outside it. A first tab flush with the row's edge has no curve, and the
+   panel's corner beside it is square until the row scrolls; after the last
+   tab the row leaves room for a curve and the panel's corner (principles
+   §2.7). A picked label turns heavier at the width a hidden copy of it in
+   the heavier weight keeps (principles §2.3): give .ir-tab-label a
+   data-text with its words. */
+.ir-tabs { --ir-tab-r: var(--ir-r-control); --ir-tab-fade: 40px; min-width: 0; }
+.ir-tabs-row { position: relative; min-width: 0; }
+.ir-tablist {
+  display: flex; gap: 2px; min-width: 0; padding-right: calc(var(--ir-tab-r) + var(--ir-r));
+  overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+  scroll-padding-inline: var(--ir-tab-fade);
+}
+.ir-tablist::-webkit-scrollbar { display: none; }
+.ir-tab {
+  position: relative; isolation: isolate; flex: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: var(--ir-target); padding: 0 12px; border: 0;
+  border-radius: var(--ir-tab-r) var(--ir-tab-r) 0 0;
+  background: transparent; color: var(--muted); white-space: nowrap; cursor: pointer;
+}
+.ir-tab:focus-visible { outline-offset: -3px; }
+/* The hover fill sits inside the tab, its corners the tab's less the inset. */
+.ir-tab:not([aria-selected="true"])::before {
+  content: ""; position: absolute; inset: 3px 2px; z-index: -1;
+  border-radius: calc(var(--ir-tab-r) - 2px); background: transparent;
+}
+.ir-tab:not([aria-selected="true"]):hover { color: var(--ink); }
+.ir-tab:not([aria-selected="true"]):hover::before { background: var(--hover); }
+.ir-tab[aria-selected="true"] { background: var(--card); color: var(--ink); }
+.ir-tab[aria-selected="true"]::before,
+.ir-tab[aria-selected="true"]::after {
+  content: ""; position: absolute; bottom: 0; width: var(--ir-tab-r); height: var(--ir-tab-r); pointer-events: none;
+}
+.ir-tab[aria-selected="true"]::before {
+  right: 100%;
+  background: radial-gradient(circle at 0 0, transparent calc(var(--ir-tab-r) - .5px), var(--card) var(--ir-tab-r));
+}
+.ir-tab[aria-selected="true"]::after {
+  left: 100%;
+  background: radial-gradient(circle at 100% 0, transparent calc(var(--ir-tab-r) - .5px), var(--card) var(--ir-tab-r));
+}
+.ir-tab[aria-selected="true"]:first-child::before { display: none; }
+.ir-tab-label { display: inline-flex; flex-direction: column; }
+.ir-tab-label::after {
+  content: attr(data-text); height: 0; overflow: hidden; visibility: hidden;
+  font-weight: 650; user-select: none; pointer-events: none;
+}
+.ir-tab[aria-selected="true"] .ir-tab-label { font-weight: 650; }
+.ir-tabpanel { padding: 10px 12px; border-radius: var(--ir-r); background: var(--card); color: var(--ink); }
+.ir-tabs:has(.ir-tablist:not(.is-more-start) > .ir-tab:first-child[aria-selected="true"]) .ir-tabpanel {
+  border-top-left-radius: 0;
+}
+
+/* A row too narrow for its tabs scrolls with no scrollbar: each side where
+   tabs hide fades and gets a chevron, outside the tab list (principles
+   §2.8). A script sets is-more-start and is-more-end as the row scrolls, as
+   the gallery's does. A mask counts only its alpha, so any role will do. */
+.ir-tablist.is-more-end { mask-image: linear-gradient(to right, var(--ink) calc(100% - var(--ir-tab-fade)), transparent); }
+.ir-tablist.is-more-start { mask-image: linear-gradient(to left, var(--ink) calc(100% - var(--ir-tab-fade)), transparent); }
+.ir-tablist.is-more-start.is-more-end {
+  mask-image: linear-gradient(to right, transparent, var(--ink) var(--ir-tab-fade), var(--ink) calc(100% - var(--ir-tab-fade)), transparent);
+}
+.ir-tabs-more {
+  position: absolute; top: 50%; z-index: 2; translate: 0 -50%;
+  display: grid; place-items: center; width: 24px; height: 24px; padding: 0;
+  border: 0; border-radius: var(--ir-r-control); background: var(--panel); color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--edge); cursor: pointer;
+}
+.ir-tabs-more:hover { background: var(--hover); }
+.ir-tabs-more.is-start { left: 0; }
+.ir-tabs-more.is-end { right: 0; }
+.ir-tabs-more svg { width: 12px; height: 12px; }
+.ir-tabs-more[hidden] { display: none; }
+@media not (any-pointer: fine) { .ir-tabs-more { display: none; } }
+
 @media (prefers-reduced-motion: reduce) {
   .ir *, .ir *::before { transition: none !important; animation: none !important; }
 }

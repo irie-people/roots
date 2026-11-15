@@ -61,6 +61,9 @@ nav.toc { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 14px; font-
 .wheel { display: flex; gap: 6px; margin-bottom: 10px; }
 .wheel i { flex: 1; height: 10px; border-radius: 5px; }
 
+/* Tab rows */
+.narrow { max-width: 300px; }
+
 .rules { margin: 10px 0 0; padding-left: 20px; max-width: 76ch; }
 .rules li { margin-top: 6px; }
 .rules li span { color: var(--muted); }
@@ -88,7 +91,7 @@ footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--edge);
   </header>
   <nav class="toc" aria-label="On this page">
     <a href="#roles">Roles</a><a href="#states">States</a><a href="#agents">Agents' colours</a>
-    <a href="#cards">Session cards</a><a href="#controls">Controls</a><a href="#notes">Banners and notices</a><a href="#rules">Principles</a>
+    <a href="#cards">Session cards</a><a href="#controls">Controls</a><a href="#tabs">Tab rows</a><a href="#notes">Banners and notices</a><a href="#rules">Principles</a>
   </nav>
   <p id="nojs">This page draws itself from web/tokens.js: it needs JavaScript.</p>
 
@@ -120,6 +123,12 @@ footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--edge);
     <h2 id="controls">Controls</h2>
     <p class="lead">Counts, the task bar, buttons, the segmented control and a field. One prominent button per view; the rest are soft (components §2.3, §3.5 to §3.8).</p>
     <div class="panes" data-board="controls" data-template="t-controls"></div>
+  </section>
+
+  <section>
+    <h2 id="tabs">Tab rows</h2>
+    <p class="lead">Folder tabs: the picked tab joins its panel, with a curve where each side meets it; flush with the edge, it has no curve there and the panel's corner is square. A picked label turns heavier but keeps its width, so nothing after it moves. A row too narrow for its tabs scrolls with no scrollbar, with a fade and a chevron only where tabs hide. Click a tab or use the arrow keys (components §3.13; principles §2.3, §2.7, §2.8, §4.6).</p>
+    <div class="panes" data-board="tabs" data-template="t-tabs"></div>
   </section>
 
   <section>
@@ -224,6 +233,49 @@ footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--edge);
     <div class="row">
       <div class="ir-seg" role="group" aria-label="View"><button type="button" aria-pressed="true">List</button><button type="button" aria-pressed="false">Repo</button></div>
       <input class="ir-field" type="search" placeholder="Find a session" aria-label="Find a session">
+    </div>
+  </div>
+</template>
+
+<template id="t-tabs">
+  <div class="stack">
+    <div class="ir-tabs">
+      <div class="ir-tabs-row">
+      <div class="ir-tablist" role="tablist" aria-label="Right sidebar">
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="Two helpers are reading the code."><span class="ir-tab-label" data-text="Helpers">Helpers</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="true" tabindex="0" data-says="Three changes wait for a look."><span class="ir-tab-label" data-text="Review">Review</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="Every notice, kept."><span class="ir-tab-label" data-text="Notices">Notices</span></button>
+      </div>
+      </div>
+      <div class="ir-tabpanel" role="tabpanel">Three changes wait for a look.</div>
+    </div>
+    <div class="ir-tabs">
+      <div class="ir-tabs-row">
+      <div class="ir-tablist" role="tablist" aria-label="Panes">
+        <button class="ir-tab" type="button" role="tab" aria-selected="true" tabindex="0" data-says="A shell in the session's folder."><span class="ir-tab-label" data-text="Terminal">Terminal</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="A page beside the work."><span class="ir-tab-label" data-text="Browser">Browser</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="The file the agent opened, to read and edit."><span class="ir-tab-label" data-text="Code">Code</span></button>
+      </div>
+      </div>
+      <div class="ir-tabpanel" role="tabpanel">A shell in the session's folder.</div>
+    </div>
+    <div class="ir-tabs narrow">
+      <div class="ir-tabs-row">
+      <button class="ir-tabs-more is-start" type="button" aria-label="Previous tabs" tabindex="-1" hidden><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M7.5 2.5 4 6l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="ir-tablist" role="tablist" aria-label="Sidebar tabs">
+        <button class="ir-tab" type="button" role="tab" aria-selected="true" tabindex="0" data-says="Pages and terminals beside the work."><span class="ir-tab-label" data-text="Dock">Dock</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="What changed in this session."><span class="ir-tab-label" data-text="Changes">Changes</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="Two helpers are reading the code."><span class="ir-tab-label" data-text="Helpers">Helpers</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="The steps the agent means to take."><span class="ir-tab-label" data-text="Plan">Plan</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="Three changes wait for a look."><span class="ir-tab-label" data-text="Review">Review</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="Every notice, kept."><span class="ir-tab-label" data-text="Notices">Notices</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="Mail, in one list."><span class="ir-tab-label" data-text="Mail">Mail</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="The session's folder."><span class="ir-tab-label" data-text="Files">Files</span></button>
+        <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-says="Find in this session."><span class="ir-tab-label" data-text="Find">Find</span></button>
+      </div>
+      <button class="ir-tabs-more is-end" type="button" aria-label="Next tabs" tabindex="-1" hidden><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2.5 8 6 4.5 9.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="ir-tabpanel" role="tabpanel">Pages and terminals beside the work.</div>
     </div>
   </div>
 </template>
@@ -388,7 +440,76 @@ footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--edge);
         });
       });
     });
+    wireTabRows();
   }
+
+  // Tab rows (components §3.13). A click or an arrow key picks a tab, which
+  // comes into view clear of the fade; each side where tabs hide gets a fade
+  // and a chevron, which scrolls the row by most of its width.
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  const glide = () => (still.matches ? 'instant' : 'smooth');
+  let tabIds = 0;
+  function syncTabRow(list) {
+    const at = list.scrollLeft, max = list.scrollWidth - list.clientWidth;
+    const start = at > 1, end = at < max - 1;
+    list.classList.toggle('is-more-start', start);
+    list.classList.toggle('is-more-end', end);
+    const row = list.closest('.ir-tabs-row');
+    const back = row.querySelector('.ir-tabs-more.is-start'), on = row.querySelector('.ir-tabs-more.is-end');
+    if (back) back.hidden = !start;
+    if (on) on.hidden = !end;
+  }
+  // Each drawing makes new tabs, so they get new ids for their panel to name.
+  function wireTabRows() {
+    document.querySelectorAll('.ir-tabs').forEach((tabs) => {
+      const panel = tabs.querySelector('[role="tabpanel"]');
+      panel.id = 'ir-tabpanel-' + ++tabIds;
+      tabs.querySelectorAll('[role="tab"]').forEach((tab) => {
+        tab.id = 'ir-tab-' + ++tabIds;
+        tab.setAttribute('aria-controls', panel.id);
+        if (tab.getAttribute('aria-selected') === 'true') panel.setAttribute('aria-labelledby', tab.id);
+      });
+    });
+    document.querySelectorAll('.ir-tablist').forEach(syncTabRow);
+  }
+  function pickTab(tab, focus) {
+    const tabs = [...tab.closest('[role="tablist"]').querySelectorAll('[role="tab"]')];
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+    }
+    const panel = document.getElementById(tab.getAttribute('aria-controls'));
+    if (panel) {
+      panel.setAttribute('aria-labelledby', tab.id);
+      panel.textContent = tab.dataset.says || tab.textContent.trim();
+    }
+    if (focus) tab.focus({ preventScroll: true });
+    tab.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: glide() });
+  }
+  document.addEventListener('click', (e) => {
+    const tab = e.target.closest('.ir-tab');
+    if (tab) { pickTab(tab, false); return; }
+    const more = e.target.closest('.ir-tabs-more');
+    if (!more) return;
+    const list = more.closest('.ir-tabs-row').querySelector('.ir-tablist');
+    list.scrollBy({ left: (more.classList.contains('is-start') ? -0.8 : 0.8) * list.clientWidth, behavior: glide() });
+  });
+  document.addEventListener('keydown', (e) => {
+    const tab = e.target instanceof Element ? e.target.closest('.ir-tab') : null;
+    if (!tab) return;
+    const tabs = [...tab.closest('[role="tablist"]').querySelectorAll('[role="tab"]')];
+    const i = tabs.indexOf(tab);
+    const to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+    if (to === undefined) return;
+    e.preventDefault();
+    pickTab(tabs[(to + tabs.length) % tabs.length], true);
+  });
+  // A row's scroll events don't bubble, so they are caught on their way down.
+  document.addEventListener('scroll', (e) => {
+    if (e.target instanceof Element && e.target.matches('.ir-tablist')) syncTabRow(e.target);
+  }, true);
+  addEventListener('resize', () => document.querySelectorAll('.ir-tablist').forEach(syncTabRow));
 
   const pickers = document.getElementById('palettes');
   pickers.innerHTML = D.palettes.map((p) => `<button type="button" data-pick-palette="${p.id}"><span class="swatch-dot" style="background:${p.light.accent}"></span>${esc(p.name)}</button>`).join('');
