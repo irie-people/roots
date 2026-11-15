@@ -260,7 +260,7 @@ With Reduce Motion on, every slide, turn and fold happens in one step.
 
 - **Why:** some people feel ill at motion on screen.
 - **From:** Apple's Reduce Motion setting; [WCAG 2.2](https://www.w3.org/TR/WCAG22/) 2.3.3.
-- **Check:** unchecked. The iPhone app does not honour it yet (README §5).
+- **Check:** unchecked. The phone web app honours it, and web/components.css; the Mac app only in its drawers and the rolodex; the iPhone and Windows apps not yet (README §5).
 
 ## 6. Words
 
@@ -296,7 +296,7 @@ Under Increase Contrast the Mac app moves dark text 35% toward black and light t
 
 - **Why:** some people need more than the minimum.
 - **From:** [WCAG 2.2](https://www.w3.org/TR/WCAG22/) 1.4.6; Apple's Increase Contrast setting.
-- **Check:** unchecked. The iPhone app does not honour it yet (README §5).
+- **Check:** unchecked. The phone web app follows `prefers-contrast: more`; the iPhone and Windows apps do not yet, nor web/components.css (README §5).
 
 ### 7.2 A screen reader reads a card as one thing
 
@@ -312,7 +312,7 @@ A notice never covers the task bar; an error stays at least 8 seconds and as lon
 
 - **Why:** a message that vanishes before it is read was never sent.
 - **From:** [WCAG 2.2](https://www.w3.org/TR/WCAG22/) 2.2.1.
-- **Check:** unchecked.
+- **Check:** unchecked. Not every client holds to it yet: the iPhone app keeps every notice 4.5 s and the phone web app an error 7 s ([sizes and motion](docs/sizes-and-motion.md)).
 
 ## 8. What Irie never draws
 

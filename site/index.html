@@ -1,0 +1,91 @@
+{{define "index.html"}}{{template "head" .}}
+<main id="main" class="landing">
+  <section class="hero">
+    {{template "sun"}}
+    <h1>Roots</h1>
+    <p class="lead">Irie People's design library: the palettes, rules and parts every <a href="https://github.com/irie-people/irie" rel="noopener">Irie</a> client draws with, kept in one place so the Mac app, the iPhone app, the web, Windows and the terminal look and behave as one.</p>
+    <p class="cta">
+      <a class="ir-button is-prominent" href="docs/getting-started.html">Get started</a>
+      <a class="ir-button" href="explorer/index.html">Explore the parts</a>
+      <a class="ir-button" href="principles.html">Read the principles</a>
+    </p>
+    <p class="stats">{{.Rules}} rules · {{.PartCount}} parts · {{len .Palettes}} palettes · {{.Roles}} colour roles · Go, CSS and Swift</p>
+  </section>
+
+  <section aria-labelledby="palettes">
+    <h2 id="palettes">Four palettes, light and dark</h2>
+    <p>Every part names a role, never a colour, so each palette, each mode and a person's own theme work everywhere. Text keeps 4.5:1 and marks 3:1 on every surface, and the tests check every pair.</p>
+    <div class="palettes">
+      {{range .Palettes}}
+      <a class="palette-card" href="palettes.html#palette-{{.ID}}" aria-label="{{.Name}}'s colours">
+        <span class="palette-name">{{.Name}}</span>
+        <span class="palette-modes">
+          {{$p := .}}{{range $m := (list "light" "dark")}}
+          <span class="mini ir" data-palette="{{$p.ID}}" data-mode="{{$m}}">
+            <span class="ir-card is-loud"><span class="ir-mark" data-state="needs"></span><span class="ir-card-main"><span class="ir-card-top"><span class="ir-card-name">api-fix</span></span><span class="ir-card-line">Asks: may it push?</span></span></span>
+            <span class="ir-card is-selected"><span class="ir-mark" data-state="working"></span><span class="ir-card-main"><span class="ir-card-top"><span class="ir-card-name">theme-fix</span></span><span class="ir-card-line">Editing the palettes</span></span></span>
+            <span class="ir-card"><span class="ir-mark" data-state="done"></span><span class="ir-card-main"><span class="ir-card-top"><span class="ir-card-name">docs-pass</span></span><span class="ir-card-line">Finished: to verify</span></span></span>
+          </span>
+          {{end}}
+        </span>
+      </a>
+      {{end}}
+    </div>
+  </section>
+
+  <section aria-labelledby="inside">
+    <h2 id="inside">What is inside</h2>
+    <div class="layers">
+      <a class="layer" href="principles.html"><b>Principles</b><span>What must hold, and why: each rule with its reason, its source and the test that checks it.</span></a>
+      <a class="layer" href="palettes.html"><b>Tokens</b><span>The values: 21 roles in four palettes, light and dark, and the numbers every client agrees on.</span></a>
+      <a class="layer" href="components.html"><b>Components</b><span>The parts, built only from roles: what each is for, its states, and where each client draws it.</span></a>
+      <a class="layer" href="components.html#4-patterns"><b>Patterns</b><span>How parts work together: one loud thing, the working wash, the button as the mark.</span></a>
+    </div>
+  </section>
+
+  <section aria-labelledby="rules">
+    <h2 id="rules">The principles at a glance</h2>
+    <div class="columns">
+      {{range .Principles}}
+      <div><h3>{{.Title}}</h3><ul class="plain">{{range .Items}}<li><a href="principles.html#{{.ID}}">{{.Title}}</a></li>{{end}}</ul></div>
+      {{end}}
+    </div>
+  </section>
+
+  <section aria-labelledby="parts">
+    <h2 id="parts">The parts</h2>
+    <p>Each one is in the <a href="explorer/index.html">explorer</a>, where its states, palettes and sizes can be tried, its code copied, and its contrast measured.</p>
+    <div class="columns">
+      {{range .Parts}}
+      <div><h3>{{.Title}}</h3><ul class="plain">{{range .Items}}<li><a href="components.html#{{.ID}}">{{.Title}}</a></li>{{end}}</ul></div>
+      {{end}}
+    </div>
+  </section>
+
+  <section aria-labelledby="start">
+    <h2 id="start">Start in a minute</h2>
+    <div class="columns two">
+      <div>
+        <h3>From Go</h3>
+<pre><code class="language-sh">go get github.com/irie-people/roots@main</code></pre>
+<pre><code class="language-go">p, _ := roots.PaletteByID("evergreen")
+fmt.Println(p.Dark["needs"])
+fmt.Println(roots.Contrast(p.Light["ink"], p.Light["card"]))</code></pre>
+      </div>
+      <div>
+        <h3>On a web page</h3>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="web/tokens.css"&gt;
+&lt;link rel="stylesheet" href="web/components.css"&gt;
+
+&lt;div class="ir" data-palette="lilac" data-mode="dark"&gt;
+  &lt;button class="ir-button is-prominent"&gt;Start the task&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+    <p>More in <a href="docs/getting-started.html">Getting started</a>, the <a href="docs/web.html">web</a>, <a href="docs/go.html">Go</a> and <a href="docs/swift.html">Swift</a> guides, and the <a href="api.html">Go API</a>.</p>
+  </section>
+</main>
+{{template "foot" .}}
+</body>
+</html>
+{{end}}

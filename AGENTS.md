@@ -18,7 +18,7 @@ Commit in UTC (`TZ=UTC git commit`) and sign off every commit (`git commit -s`, 
 
 ## Stack and checks
 
-Go, with the standard library only. Before a commit, `gofmt -l .` prints nothing and `go vet ./...` and `go test ./...` pass; CI runs the same. After changing palettes/ or tokens.json, run `go run ./cmd/webtokens`. The library holds to its own principles: its palettes keep their contrast (`TestPalettesKeepTheirContrast`).
+Go, with the standard library only. Before a commit, `gofmt -l .` prints nothing and `go vet ./...` and `go test ./...` pass; CI runs the same. After changing palettes/ or tokens.json, run `go run ./cmd/webtokens`. `go run ./cmd/site` builds the docs site into `_site/`; its test checks every link in it. Docs keep to the Markdown internal/md reads (its package comment says which). The library holds to its own principles: its palettes keep their contrast (`TestPalettesKeepTheirContrast`).
 
 ## What goes where
 

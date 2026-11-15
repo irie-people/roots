@@ -1,0 +1,42 @@
+{{define "explorer.html"}}{{template "head" .}}
+<main id="main" class="ex">
+  <nav class="ex-side" id="side" aria-label="Parts">
+    <input class="ir-field ex-find" type="search" placeholder="Find a part" aria-label="Find a part">
+    <div id="ex-tree"></div>
+  </nav>
+  <section class="ex-main" aria-labelledby="ex-title">
+    <div class="ex-head">
+      <div>
+        <p class="ex-crumb" id="ex-crumb"></p>
+        <h1 id="ex-title">Explorer</h1>
+      </div>
+      <div class="ex-tools" aria-label="How to draw it">
+        <div class="ir-seg" role="group" aria-label="Mode" id="ex-mode"><button type="button" data-v="light">Light</button><button type="button" data-v="dark">Dark</button><button type="button" data-v="both">Both</button></div>
+        <div class="ir-seg" role="group" aria-label="Size" id="ex-density"><button type="button" data-v="pointer">Pointer</button><button type="button" data-v="touch">Touch</button></div>
+        <div class="ir-seg" role="group" aria-label="Width" id="ex-width"><button type="button" data-v="full">Wide</button><button type="button" data-v="phone">Phone</button></div>
+        <div class="ir-seg" role="group" aria-label="Ground" id="ex-ground"><button type="button" data-v="sidebar">Sidebar</button><button type="button" data-v="card">Card</button><button type="button" data-v="ground">Window</button></div>
+      </div>
+    </div>
+    <p class="ex-blurb" id="ex-blurb"></p>
+    <div class="ex-canvas" id="ex-canvas" aria-label="The part, drawn"></div>
+    <div class="ir-tabs ex-tabs">
+      <div class="ir-tabs-row">
+        <div class="ir-tablist" role="tablist" aria-label="About the part">
+          <button class="ir-tab" type="button" role="tab" aria-selected="true" tabindex="0" data-panel="controls"><span class="ir-tab-label" data-text="Controls">Controls</span></button>
+          <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-panel="code"><span class="ir-tab-label" data-text="Code">Code</span></button>
+          <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-panel="usage"><span class="ir-tab-label" data-text="Usage">Usage</span></button>
+          <button class="ir-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-panel="contrast"><span class="ir-tab-label" data-text="Contrast">Contrast</span></button>
+        </div>
+      </div>
+      <div class="ir-tabpanel ex-panel" role="tabpanel" id="ex-panel"></div>
+    </div>
+  </section>
+</main>
+<script type="application/json" id="ex-usage">{{.Usage}}</script>
+<script src="../web/tokens.js"></script>
+<script src="../web/components.js"></script>
+<script src="../assets/stories.js"></script>
+<script src="../assets/explorer.js"></script>
+</body>
+</html>
+{{end}}

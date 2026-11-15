@@ -1,12 +1,12 @@
-/* Irie's parts for web pages (design/components.md), built only from the
+/* Irie's parts for web pages (components.md), built only from the
    roles in tokens.css: link tokens.css first. Every class starts ir-, so a
    page's own classes never meet them. data-density="touch" on any element
    gives what is inside it the phone's sizes; without it, parts are the
-   pointer clients' size. The gallery (design/gallery.html) draws each one.
+   pointer clients' size. The gallery (gallery.html) draws each one.
 
    An agent's colours come in per card, as --a-mark, --a-wash and --a-ink:
    the core says which agent, and the client works the colours out
-   (design/tokens.json, agents). */
+   (tokens.json, agents). */
 
 .ir {
   --ir-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;

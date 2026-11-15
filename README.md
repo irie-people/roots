@@ -4,7 +4,7 @@ Irie People's design library, named for roots reggae: the roots every Irie clien
 
 How [Irie](https://github.com/irie-people/irie) looks and behaves in every client, kept in one place: the palettes and numbers every client draws with, the rules Irie has learned, and the parts it draws them as. Irie has six clients: the Mac app, the iPhone app, the phone's web app, the Windows app, the terminal sidebar and its site. They are written in Swift, HTML and CSS, JavaScript and Go. This library keeps them one product, and any Irie People project can draw from it.
 
-To see it, open [gallery.html](gallery.html) in a browser from a checkout; it needs no server.
+**Docs and the parts explorer: [irie-people.github.io/roots](https://irie-people.github.io/roots/).** From a checkout, `go run ./cmd/site` builds the same site into `_site/`, and [gallery.html](gallery.html) opens with no server.
 
 | File | What it holds |
 |---|---|
@@ -15,6 +15,9 @@ To see it, open [gallery.html](gallery.html) in a browser from a checkout; it ne
 | [gallery.html](gallery.html) | Every palette, role, state and part, drawn in each palette and mode (`#palette=lilac&mode=dark` picks one) |
 | [web/components.css](web/components.css) | The parts for web pages, as `ir-` classes built only from roles |
 | web/tokens.css, web/tokens.js | The palettes for a web page, made by `go run ./cmd/webtokens` |
+| web/components.js | The parts' behaviour that CSS cannot give (the tab row's keys and chevrons) |
+| [docs/](docs) | The guides: colour, accessibility, sizes and motion, theming, the web, Go, Swift, the terminal, copies, contributing, FAQ |
+| site/, cmd/site | The docs site and its parts explorer, built by `go run ./cmd/site` and published by GitHub Pages |
 | roots.go, copies.go, generate.go | The library in Go: `import "github.com/irie-people/roots"` |
 
 ## 1. The layers
@@ -87,7 +90,8 @@ Not yet, in the order Irie's docs/proposals/design-library.md plans them:
 - Irie's site's themes page is drawn by hand; it should be made from the library, so a colour change needs no new drawing.
 - The Swift apps keep their palettes as code; they could be written from the library at build time instead.
 - There is no spacing scale or type ramp: each client sets its own sizes.
-- The iPhone app does not honour Increase Contrast or Reduce Motion yet (principles §5.3, §7.1).
+- The iPhone and Windows apps do not honour Increase Contrast or Reduce Motion yet, the Mac app's Reduce Motion reaches only its drawers and the rolodex, and web/components.css has no rule for Increase Contrast (principles §5.3, §7.1).
+- Not every client keeps an error notice 8 seconds (principles §7.3).
 - Several parts differ between clients where they should not: they are marked **To converge** in components.md.
 - A [Design Tokens](https://www.designtokens.org/tr/2025.10/) export of the palettes, for design tools.
 
