@@ -190,7 +190,7 @@ A step happens when asked, and Undo takes it back, even across a restart. Irie a
 
 ### 4.3 Every drag has a click or a key
 
-Whatever a drag does, a pointer's single click or a key can do too: move keys for the order, a menu to move a card to a group.
+Whatever a drag does, a pointer's single click or a key can do too: move keys for the order, a menu to move a card to a group, View › Panes Over the Terminal for a drag of the panes' edge past the terminal's narrowest.
 
 - **Why:** not everyone can drag.
 - **From:** [WCAG 2.2](https://www.w3.org/TR/WCAG22/) 2.5.7.
@@ -220,6 +220,22 @@ A row that swaps the panel under it is a tab list: it has a name, each tab says 
 - **From:** [WAI-ARIA Authoring Practices, Tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/), read 2026-11-15; Ariakit's tabs (MIT).
 - **Check:** unchecked. Irie's web apps' tab rows have the roles but not yet the keys (components §3.13).
 
+### 4.7 A drop shows where it lands, and only where it acts
+
+While a drag holds something, the place it would land lights, and only a place where the drop would change something: a group held over its own space's chip lights nothing. A target that is plain until a drag, as the + after the space chips, says what a drop there does while one is held ("New Space").
+
+- **Why:** a drag is a guess until the target answers; a target that lights for nothing teaches people to distrust the rest.
+- **From:** asked for on 2026-11-15 ("drag groups to new workspaces"; the drags should be "super great and easy").
+- **Check:** unchecked (the Mac app's `SpaceDrop` and `DropModel`).
+
+### 4.8 A key with fn belongs to the key router
+
+A key with fn in it, such as Fn+Tab for the next space, is caught by the Mac app's key router (KeyRouter), and its menu item names it in its help, never as its shortcut.
+
+- **Why:** AppKit takes fn out of an app's own menu keys ("only supported for system-provided menu items"), so the item would show and take the key without fn: tried with fn⌃Tab, the item read and acted as ⌃Tab, Next Session.
+- **From:** asked for on 2026-11-15; AppKit's message on macOS 14.1, and SwiftUI's [`EventModifiers.function`](https://developer.apple.com/documentation/swiftui/eventmodifiers/function), "reserved for system applications".
+- **Check:** `TestNoMenuKeyTakesFn` (internal/designcheck).
+
 ## 5. Motion
 
 ### 5.1 Motion only explains
@@ -232,10 +248,10 @@ Motion shows where a thing came from or went: a drawer slides in from its edge, 
 
 ### 5.2 Drawers, not covers
 
-Side panels are drawers that slide in (0.28 s on the Mac) beside the terminal, never sheets over it. The terminal resizes once when a drawer opens, closes or its edge is let go.
+Side panels are drawers that slide in (0.28 s on the Mac) beside the terminal, never sheets over it. The terminal resizes once when a drawer opens, closes or its edge is let go. One exception is the person's own: the panes dragged past the terminal's narrowest, about 60 columns, or View › Panes Over the Terminal, lie over the terminal like one window over another. The terminal keeps its narrowest, the one with the keyboard lies on top, a click on what shows of the other brings that one up, and nothing resizes as they swap.
 
-- **Why:** each resize redraws every agent's terminal, and a cover hides the work.
-- **From:** asked for on 2026-11-02 and 2026-11-08.
+- **Why:** each resize redraws every agent's terminal, and a cover hides the work; a cover the person chose, that steps back whenever the terminal takes the keyboard, hides nothing they are using.
+- **From:** asked for on 2026-11-02 and 2026-11-08; the exception on 2026-11-15.
 - **Check:** unchecked.
 
 ### 5.3 Reduce Motion is honoured
