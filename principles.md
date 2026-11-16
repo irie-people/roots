@@ -236,6 +236,14 @@ A key with fn in it, such as Fn+Tab for the next space, is caught by the Mac app
 - **From:** asked for on 2026-11-15; AppKit's message on macOS 14.1, and SwiftUI's [`EventModifiers.function`](https://developer.apple.com/documentation/swiftui/eventmodifiers/function), "reserved for system applications".
 - **Check:** `TestNoMenuKeyTakesFn` (internal/designcheck).
 
+### 4.9 A terminal's clicks are its program's
+
+A plain click in a terminal goes on to the program in it. Irie takes only a drag, which selects, and a ⌘-click on a link, which opens it where the person chose, in front and with the keyboard: beside its session unless they chose their browser, and ⇧⌘-click opens it in the other place.
+
+- **Why:** agents act on clicks, on a menu's options or a tool's output, so a click Irie kept would be one the agent never got; ⌘-click is how a Mac terminal opens a link, and a page opened beside its session keeps the work in one window.
+- **From:** asked for on 2026-11-15 ("if i click a link in the term in irie … default be open in the sessions rolodex"); Ghostty's and SwiftTerm's own link clicks, and [Claude Code's fullscreen view](https://code.claude.com/docs/en/fullscreen.md#use-the-mouse).
+- **Check:** `TestALinkOpensInTheSessionsPanes`, `TestALinkOpensWhereTheSettingSays` (Irie's internal/core).
+
 ## 5. Motion
 
 ### 5.1 Motion only explains
