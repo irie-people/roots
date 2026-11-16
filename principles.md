@@ -84,7 +84,7 @@ A gradient goes from a colour to a quieter step of the same hue, as a working ca
 
 - **Why:** one hue reads as one thing that is busy; many hues read as decoration.
 - **From:** asked for (the selected card's fade); [unslop](https://github.com/heydamir/unslop) by Damir Sokolovsky, CC BY 4.0, for what not to draw.
-- **Check:** unchecked.
+- **Check:** `TestShadowsAreNeutral` (Irie's internal/designcheck) for the Mac app's shadows; gradients and glows are unchecked.
 
 ## 2. Order and layout
 
@@ -122,15 +122,15 @@ A card is two lines: a mark, the name and the age, then the detail in plain word
 
 ### 2.5 Flat, but the selection stands up
 
-Cards lie flat in the list, with no edge or shadow at rest. The selected card stands up on one gentle shadow and is tied by a line to its terminal. Panels sit lighter than the list; depth otherwise comes from the surfaces' lightness steps.
+Cards lie flat in the list, with no edge or shadow at rest. The selected card stands up on one gentle shadow and is tied by a line to its terminal. Panels sit lighter than the list; depth otherwise comes from the surfaces' lightness steps. A band across a column (the sidebar's header and footer, the strip under the terminal) and the boxes on it (the details, the notes, a field) are set apart by that step and a hairline, never by a shadow of their own. A shadow belongs only to the selection and to what lies over the work: a segmented control's thumb, a drawer or the panes over the terminal, a notice.
 
-- **Why:** one raised thing says where you are; many raised things say nothing.
-- **From:** the Mac app's sidebar (mac/Sources/Irie/SidebarView.swift).
-- **Check:** unchecked.
+- **Why:** one raised thing says where you are; many raised things say nothing. With a shadow under every band and box, the selected card was one lift among seven.
+- **From:** the Mac app's sidebar (mac/Sources/Irie/SidebarView.swift); the bands and boxes asked for on 2026-11-15 ("subtly distinguishing sections").
+- **Check:** `TestShadowsAreNeutral` (Irie's internal/designcheck) keeps every shadow neutral; which parts may have one is unchecked.
 
 ### 2.6 Space and shape
 
-Sizes step on a 4-point grid; there is less space inside a group than between groups; an inner corner's radius is the outer radius less the padding between them. Corners follow the platform: cards are 14 on the Mac, 16 on the phones, 8 on Windows.
+Sizes step on a 4-point grid; there is less space inside a group than between groups, so a head sits nearer its own rows than the rows before it, and a card's helpers nearer their card than the next card is; an inner corner's radius is the outer radius less the padding between them. Corners follow the platform: cards are 14 on the Mac, 16 on the phones, 8 on Windows.
 
 - **Why:** rhythm makes a view easy to read; one-off sizes make it look assembled.
 - **From:** [unslop](https://github.com/heydamir/unslop) (CC BY 4.0); the clients' own sizes; [Ariakit's video](https://www.instagram.com/reel/DfxUCLXi2tj) of 2026-11-15 shows the corner rule in a tab row (16 round 11, with 5 between).
@@ -151,6 +151,22 @@ A row too narrow for its items may hide its scrollbar only if it shows a fade an
 - **Why:** a row cut off cleanly at its edge looks complete, so what lies past it is never found, and a picked item out of sight looks as if nothing is picked.
 - **From:** Ariakit's tabs (MIT): fades at each end while more tabs lie that way, and "Previous tabs" and "Next tabs" buttons beside the row with a fine pointer, read 2026-11-15; Ariakit's video of 2026-11-15.
 - **Check:** unchecked. The gallery's tab rows do it (components §3.13); the Mac's code card files and space chips do not yet.
+
+### 2.9 A head is quieter than what it heads
+
+A section's head (a group's, the notes', Ready to review, the sessions outside Irie) is smaller than the names under it, in `muted`, heavy and spaced a little. It turns `ink` under the pointer, and red only for what needs you (1.5). Every head in a view has the one look.
+
+- **Why:** the cards are what a person reads; a head only says where its section starts. Heads as loud as the cards stop the eye at every one, and five looks for one job read as five kinds of thing.
+- **From:** asked for on 2026-11-15 ("subtly distinguishing sections"); the group head (components §3.4).
+- **Check:** unchecked.
+
+### 2.10 What belongs together is joined
+
+Parts that belong together show it: the selected card's line runs to its terminal, a group's rail hangs from its head's chevron down past its last card, a card's helpers tuck under it, and the details panel takes the selected session's colour on its edge. A colour that joins things means one thing: an agent's colour means that session, so nothing that belongs to another session wears it.
+
+- **Why:** a tie the eye can follow answers "whose is this?" without reading; a colour that means two things answers it wrongly.
+- **From:** asked for on 2026-11-15 ("connecting them"); the line to the terminal, asked for on 2026-10-27.
+- **Check:** unchecked. The panes beside a terminal still take colours of their own from the agents' six, so a pane can wear another session's colour (components §3.11, to converge).
 
 ## 3. Disclosure
 
@@ -332,6 +348,7 @@ A notice never covers the task bar; an error stays at least 8 seconds and as lon
 - Colour fans at full brightness and saturation (1.4).
 - One-off sizes, uppercase tracked labels on body text, pulsing on what is not live.
 - A picked label that widens its row, or a row cut off at its edge with no sign of what lies past it (2.3, 2.8).
+- A shadow under a band, a panel or a field; a head as loud as its rows (2.5, 2.9).
 
 From [unslop](https://github.com/heydamir/unslop) (CC BY 4.0) and Irie's own history. A quick test for a new view: put another product's name on it. If it still fits as well, it has no point of view yet.
 
@@ -347,7 +364,7 @@ When a session learns something that should hold from now on, about colour, layo
 ### 9.1 Where rules met and how they were settled
 
 - **Gradients.** "No gradients" met the selected card's fade, which was asked for: a gradient within one hue is allowed, across hues never (1.10).
-- **Shadows.** "Depth from surfaces" met the selected card's shadow: one shadow, for the selection (2.5).
+- **Shadows.** "Depth from surfaces" met the selected card's shadow: one shadow, for the selection and what lies over the work; bands, panels and fields take a hairline (2.5).
 - **Harmony or distinction.** Neighbouring hues look calmer, but cards side by side must stand apart: distinction wins for neighbours (1.6).
 - **Agents' colours for colour-blind viewers.** The six share one lightness, so some pairs come close in colour-blind vision. They mark which session is which, never a state, and each card has its name: no meaning rides on them alone (1.7).
 - **Scrolling.** "Only the person scrolls" has two exceptions: a task they just started scrolls into view, and so does a row's picked item when it changes (2.3, 2.8).

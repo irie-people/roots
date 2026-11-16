@@ -41,8 +41,9 @@ The start button is 24 px round at pointer density and 34 px at touch density; t
 ### Mac
 
 - **Card.** Radius 14, frame and task bar radius 16, text inset 12, padding 8 by 12, and a 66 pt trailing slot for the age and buttons. Details panel radius 14.
-- **Type.** SwiftUI's rounded design. A card's name is 13.5 semibold (medium when quiet), its detail line 12, its age 11; group heads 11.5 to 12.
-- **Shadow.** Cards lie flat. The selected card and fields sit on a gentle shadow: the `ink` colour at 8% opacity in light mode, black at 38% in dark.
+- **Type.** SwiftUI's rounded design. A card's name is 13.5 semibold (medium when quiet), its detail line 12, its age 11; section heads (groups, the notes, Ready to review, Outside Irie) 11.5 heavy, tracked 0.3, in `muted`.
+- **List.** Cards stand 6 apart; a head keeps 8 more above it than below; a card's helpers sit 2 under it. A group's cards step 14 in, its rail 2 wide at 9 in, under the head's chevron. The list fades into the sidebar's ground over its last 14 points.
+- **Shadow.** Cards lie flat. The selected card sits on a gentle shadow: the `ink` colour at 8% opacity in light mode, black at 38% in dark; so do the segmented control's thumb and the right sidebar's picked tab, smaller. The sidebar's header and footer, the strip under the terminal, the panels and the fields have no shadow: a hairline in `edge` sets them apart. What lies over the work has its own, in black: the terminal's frame, the right sidebar as it slides in, the panes over the terminal, a notice.
 - **Right sidebar.** 340 pt wide by default, 260 to 520, its tab names turning to icons when narrow.
 
 ### iPhone

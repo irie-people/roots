@@ -82,17 +82,17 @@ The buttons that show on the card under the pointer: pause, boost, park, and `�
 
 ### 3.3 Helper rows
 
-A card's helpers and teammates, under it: `↳ Explore  Reading DESIGN.md`, three at most, then "and N more". A `×` under the pointer hides one from the card; it keeps working.
+A card's helpers and teammates, under it: `↳ Explore  Reading DESIGN.md`, three at most, then "and N more". A `×` under the pointer hides one from the card; it keeps working. They tuck under their card, nearer it than the next card is, so the card and its helpers read as one (principles §2.6, §2.10).
 
-- **Mac:** `HelperRows` with `SubRow` (SidebarView.swift, Tabs.swift). **iPhone, phone web:** in the card (`.c-helper`). **Terminal:** in card.go.
+- **Mac:** `HelperRows` with `SubRow` (SidebarView.swift, Tabs.swift), 2 points under the card where cards stand 6 apart. **iPhone, phone web:** in the card (`.c-helper`). **Terminal:** in card.go.
 
 ### 3.4 Group head
 
 The header of a group of cards: a chevron, the group's name, its count, and "· N need you" in red when it is folded and something in it needs you. Pinned heads the list; Parked follows the groups, folded.
 
-- **Made of:** a chevron that turns as it folds, the name in `muted` at a small, heavy size, the count in tabular figures.
-- **Use it** to fold, and to drop cards into a group. Double-click renames, right-click opens the group's menu.
-- **Mac:** `GroupHeader` (SidebarView.swift), with the group's rail. **iPhone:** the Parked, Closed and machine heads (Home.swift). **Phone web:** `.divider`, `.msec-head`. **Windows:** `.group-head`. **Terminal:** list.go.
+- **Made of:** a chevron that turns as it folds, the name in `muted` at a small, heavy size, spaced a little, the count in tabular figures; `ink` on a `hover` fill under the pointer. A head is quieter than the cards under it (principles §2.9), and keeps more room above it than below, so it reads as the start of its own cards (§2.6). One of your groups hangs its cards off a rail that drops from the chevron (§2.10).
+- **Use it** to fold, and to drop cards into a group. Double-click renames, right-click opens the group's menu. Every section head in a view takes this look: the notes' and Ready to review's in the sidebar's footer, and Outside Irie's, which adds a rule after its count since its sessions are not Irie's own.
+- **Mac:** `GroupHeader` (SidebarView.swift): rounded 11.5 heavy, tracked 0.3 (`Theme.headSize`, `Theme.headTracking`), 8 points more above it than below (`Theme.headGap`); the group's rail at 9 points in, under the chevron, and its cards 14 in (`ListLayout`). The notes' head (NotesPanel.swift), Ready to review (ReviewDock.swift) and Outside Irie (OutsideSection.swift) share the look. **iPhone:** the Parked, Closed and machine heads (Home.swift). **Phone web:** `.divider`, `.msec-head`. **Windows:** `.group-head`. **Terminal:** list.go.
 
 ### 3.5 Task bar
 
@@ -106,7 +106,7 @@ Where a person types a task, at the foot of the sidebar: three lines tall, alway
 
 - **Start button:** a round button in `accent_fill` with an `on_accent` arrow: starts a task, sends a message. **Mac:** in `TaskBar` and the composer. **iPhone:** `SendButton` (Parts.swift), 34 pt with its touch area 6 pt wider.
 - **Soft button:** a capsule on `card` with an `edge` hairline; prominent, it takes `accent_fill`. **Mac:** `SoftButton` (ConversationView.swift). **iPhone:** `PrimaryButton`, `SecondaryButton` (Parts.swift), with a danger look in `needs`.
-- **Icon button:** an icon in `muted` that turns `ink` on a `hover` fill. **Phone web, Windows:** `.icon-btn`.
+- **Icon button:** an icon in `muted` that turns `ink` on a `hover` fill, with no bezel. **Mac:** `IconButtonStyle` (Controls.swift), as in the details panel. **Phone web, Windows:** `.icon-btn`.
 - **Use** one prominent button per view at most; every other button is soft or an icon. A button says a verb and its object (principles §6.2).
 
 ### 3.7 Segmented control
@@ -131,14 +131,15 @@ A one-line text field, such as Find: the `field` surface, an `edge` hairline tha
 
 What a card holds that its two lines cannot: the exact command, the repo and branch, the costs. It opens at one line and folds back to it, never showing half a line.
 
-- **Mac:** `DetailsPanel` (SidebarView.swift): `panel`, radius 14, edged in the state's colour, a drag grip, `DetailsFold`. **iPhone:** `DetailsPanel` (SessionScreen.swift), a grid of names and values.
+- **Mac:** `DetailsPanel` (SidebarView.swift): `panel`, radius 14, flat, edged in the state's colour or the working agent's, which ties it to the selected card (principles §2.10); a drag grip; its buttons are icon buttons (§3.6), and `DetailsFold`. **iPhone:** `DetailsPanel` (SessionScreen.swift), a grid of names and values.
 
 ### 3.11 Drawer
 
 A panel that slides in beside the work, never over it: the right sidebar's tabs (helpers, review, notices, mail, plugins). The terminal resizes once as it opens, closes or its edge is let go.
 
 - **Mac:** `RightSidebar` (RightSidebar.swift): 340 pt wide by default, 260 to 520, its tab names turning to icons when narrow; `.smooth(0.28)`, one step under Reduce Motion.
-- **Mac, the panes:** the rolodex of cards between the terminal and the right sidebar (Rolodex.swift) is a drawer too, until it is let go past the terminal's narrowest (principle 5.2): then it lies over the terminal, on a ground of its own (`PanesGround`) with a shadow while on top, its tabs starting where the terminal ends so they show either way, and the divider at whichever edge shows between them.
+- **Mac, the panes:** the rolodex of cards between the terminal and the right sidebar (Rolodex.swift) is a drawer too, until it is let go past the terminal's narrowest (principle 5.2): then it lies over the terminal, on a ground of its own (`PanesGround`) with a shadow while on top, its tabs starting where the terminal ends so they show either way, and the divider at whichever edge shows between them. The front card's shadow is neutral; its edge, in its colour, shows that it has the keyboard.
+- **To converge:** each of a session's panes takes one of the agents' six colours, picked to differ from the card before it and from its session's own, so a pane can wear the colour of another session in the list (principles §2.10). The panes could take their session's colour, told apart by their names and icons.
 
 ### 3.12 Conversation
 
@@ -164,9 +165,9 @@ A row of tabs, one picked, that swaps what shows under it: the panes' index tabs
 - **Keys:** on the web, the tab list's roles and keys (principles §4.6). On the Mac, each row's tabs have keys of their own: ⌥⌘1–9 for the right sidebar, ⌃1–9 for spaces, ⌥Tab through the panes.
 - **Use it** when each tab has its own content in one place. For a few views of one thing, a segmented control (§3.7); for pages, links in a navigation row.
 - **Don't** let a picked label widen the row, hide a scrollbar without the fade and chevron, or give a row the tabs' roles without their keys.
-- **Mac:** the panes' index tabs (`IndexCard`, `CardTab`, `RolodexLayout`, Rolodex.swift): folder tabs drawn as one outline with tangent arcs, their widths set by the row, so nothing moves. The right sidebar's tabs (RightSidebar.swift), their names turning to icons when narrow (`ViewThatFits`). Space chips (`SpaceBar`, `SpaceChip`, Spaces.swift). A code card's files (CodePane.swift). **Phone web:** Browser and Term (`.seg`, js/conv.js). **Windows:** List and Repo (`.seg`), the spaces (`.spaces`) and Settings' pages (`.set-tabs`, js/settings.js). **Web:** `.ir-tabs` (web/components.css), with the keys and chevrons in the gallery's script.
+- **Mac:** the panes' index tabs (`IndexCard`, `CardTab`, `RolodexLayout`, Rolodex.swift): folder tabs drawn as one outline with tangent arcs, their widths set by the row, so nothing moves. The right sidebar's tabs (RightSidebar.swift): a `card` thumb on a soft shadow, as the segmented control's (§3.7), never the `selection`, which marks the session on show; each label as wide as its heavier self; their names turning to icons when narrow (`ViewThatFits`). Space chips (`SpaceBar`, `SpaceChip`, Spaces.swift). A code card's files (CodePane.swift). **Phone web:** Browser and Term (`.seg`, js/conv.js). **Windows:** List and Repo (`.seg`), the spaces (`.spaces`) and Settings' pages (`.set-tabs`, js/settings.js). **Web:** `.ir-tabs` (web/components.css), with the keys and chevrons in the gallery's script.
 - **To converge:**
-  - The Mac's right sidebar tabs, space chips and code card files turn the picked label bold while each sizes to its text, so the labels after it move at every pick, by 1 to 5 points (measured in the system fonts at their sizes).
+  - The Mac's space chips and code card files turn the picked label bold while each sizes to its text, so the labels after it move at every pick, by 1 to 5 points (measured in the system fonts at their sizes). The right sidebar's tabs keep their width since 2026-11-15.
   - A code card's files and the space chips scroll with no scrollbar, fade or chevron, and a newly opened file's chip is added at the end, where it can land out of sight.
   - The web apps' four tab rows have the tabs' roles but not their keys; Settings' row has no name and, as written, loses the keyboard when it draws itself again.
   - A segmented control is pressed buttons in the gallery and tabs in the web apps; each should follow what it does (§3.7).
@@ -196,6 +197,17 @@ A part keeps its place and size while it changes: a state change changes colours
 ### 4.6 Undo, not "Are you sure?"
 
 Act at once, show a notice with Undo, and keep it in the history (principles §4.2).
+
+### 4.7 Sections set apart, and joined
+
+A view's sections are told apart quietly, by space, a step in lightness and a hairline, so the one loud thing and the one raised thing still stand out (§4.1, principles §2.5):
+
+- A band across a column, as the sidebar's header and footer or the strip under the terminal, sits a step lighter than the list, round on the side that faces the work, with a hairline along that side alone.
+- A list that scrolls under a band fades into its own ground first, so a card cut off there reads as more below, not as a card under a sheet (principles §2.8).
+- Boxes on a band (the details, the notes, a field) are flat, edged in a hairline.
+- Heads are quieter than their rows, and nearer them than the rows before (principles §2.6, §2.9).
+
+What belongs together is joined (principles §2.10): the selected card's line to its terminal, a group's rail from its chevron, helpers tucked under their card, the details panel's edge in the selected session's colour.
 
 ## 5. Adding a part
 
